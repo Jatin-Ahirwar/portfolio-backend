@@ -249,7 +249,7 @@ exports.createBackendProject = catchAsyncErrors(async (req, res, next) => {
         }
     }
 
-        const newFrontend = new frontModel({
+        const newBackend = new BackModel({
             aboutProject,
             projectTitle, 
             projectName,
@@ -263,21 +263,21 @@ exports.createBackendProject = catchAsyncErrors(async (req, res, next) => {
         });
         
         if (uploadedprojectVideo.length > 0) {
-            newFrontend.projectVideo = {
+            newBackend.projectVideo = {
                 fileId: uploadedprojectVideo[0].fileId,
                 url: uploadedprojectVideo[0].url,
             };
         }
 
-        newFrontend.user = userID._id
-        userID.frontend.push(newFrontend._id);
-        await newFrontend.save();
+        newBackend.user = userID._id
+        userID.backend.push(newBackend._id);
+        await newBackend.save();
         await userID.save();
 
         res.status(200).json({
             success: true,
-            message: "Frontend Project Uploaded successfully",
-            // Frontend: newFrontend,
+            message: "Backend Project Uploaded successfully",
+            Backend: newBackend,
         });
 });
 
@@ -308,7 +308,7 @@ exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
             
         }
         const compressedBuffer = await ImageCompressor(file.data);
-        const modifiedName = `Frontend-compressed-poster-${Date.now()}${path.extname(file.name)}`;
+        const modifiedName = `Mern-compressed-poster-${Date.now()}${path.extname(file.name)}`;
         const { fileId, url } = await imagekit.upload({
             file: compressedBuffer,
             fileName: modifiedName,
@@ -331,7 +331,7 @@ exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
             }
 
             const compressedBuffer = await VideoCompressor(file.data);
-            const modifiedName = `Frontend-compressed-projectVideo-${Date.now()}${path.extname(file.name)}`;
+            const modifiedName = `Mern-compressed-projectVideo-${Date.now()}${path.extname(file.name)}`;
             const { fileId, url } = await imagekit.upload({
                 file: compressedBuffer,
                 fileName: modifiedName,
@@ -350,7 +350,7 @@ exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
         if(allowedImageTypes.includes(file.mimetype)){
 
         const compressedBuffer = await ImageCompressor(file.data);
-        const modifiedName = `Frontend-compressed-images-${Date.now()}${path.extname(file.name)}`;
+        const modifiedName = `Mern-compressed-images-${Date.now()}${path.extname(file.name)}`;
         const { fileId, url } = await imagekit.upload({
             file: compressedBuffer,
             fileName: modifiedName,
@@ -366,7 +366,7 @@ exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
         }
     }
 
-        const newFrontend = new frontModel({
+        const newMern = new MernModel({
             aboutProject,
             projectTitle, 
             projectName,
@@ -380,21 +380,21 @@ exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
         });
         
         if (uploadedprojectVideo.length > 0) {
-            newFrontend.projectVideo = {
+            newMern.projectVideo = {
                 fileId: uploadedprojectVideo[0].fileId,
                 url: uploadedprojectVideo[0].url,
             };
         }
 
-        newFrontend.user = userID._id
-        userID.frontend.push(newFrontend._id);
-        await newFrontend.save();
+        newMern.user = userID._id
+        userID.mern.push(newMern._id);
+        await newMern.save();
         await userID.save();
 
         res.status(200).json({
             success: true,
-            message: "Frontend Project Uploaded successfully",
-            // Frontend: newFrontend,
+            message: "Mern Project Uploaded successfully",
+            Mern: newMern,
         });
 });
 
@@ -425,7 +425,7 @@ exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
             
         }
         const compressedBuffer = await ImageCompressor(file.data);
-        const modifiedName = `Frontend-compressed-poster-${Date.now()}${path.extname(file.name)}`;
+        const modifiedName = `UiUx-compressed-poster-${Date.now()}${path.extname(file.name)}`;
         const { fileId, url } = await imagekit.upload({
             file: compressedBuffer,
             fileName: modifiedName,
@@ -448,7 +448,7 @@ exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
             }
 
             const compressedBuffer = await VideoCompressor(file.data);
-            const modifiedName = `Frontend-compressed-projectVideo-${Date.now()}${path.extname(file.name)}`;
+            const modifiedName = `UiUx-compressed-projectVideo-${Date.now()}${path.extname(file.name)}`;
             const { fileId, url } = await imagekit.upload({
                 file: compressedBuffer,
                 fileName: modifiedName,
@@ -467,7 +467,7 @@ exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
         if(allowedImageTypes.includes(file.mimetype)){
 
         const compressedBuffer = await ImageCompressor(file.data);
-        const modifiedName = `Frontend-compressed-images-${Date.now()}${path.extname(file.name)}`;
+        const modifiedName = `UiUx-compressed-images-${Date.now()}${path.extname(file.name)}`;
         const { fileId, url } = await imagekit.upload({
             file: compressedBuffer,
             fileName: modifiedName,
@@ -483,7 +483,7 @@ exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
         }
     }
 
-        const newFrontend = new frontModel({
+        const newUiUx = new UiUxModel({
             aboutProject,
             projectTitle, 
             projectName,
@@ -497,20 +497,20 @@ exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
         });
         
         if (uploadedprojectVideo.length > 0) {
-            newFrontend.projectVideo = {
+            newUiUx.projectVideo = {
                 fileId: uploadedprojectVideo[0].fileId,
                 url: uploadedprojectVideo[0].url,
             };
         }
 
-        newFrontend.user = userID._id
-        userID.frontend.push(newFrontend._id);
-        await newFrontend.save();
+        newUiUx.user = userID._id
+        userID.uiux.push(newUiUx._id);
+        await newUiUx.save();
         await userID.save();
 
         res.status(200).json({
             success: true,
-            message: "Frontend Project Uploaded successfully",
-            // Frontend: newFrontend,
+            message: "UiUx Project Uploaded successfully",
+            UiUx: newUiUx,
         });
 });

@@ -2,9 +2,12 @@ require("dotenv").config({path:"./.env"})
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
+const cors = require("cors")
 
 // Db connection 
 require("./models/database.js").connectDatabase()
+
+app.use(cors({credentials:true, origin:true}))
 
 // logger
 const logger = require("morgan")
