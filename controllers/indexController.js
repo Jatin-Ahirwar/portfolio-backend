@@ -2,7 +2,7 @@ const { catchAsyncErrors } = require("../middleware/catchAsyncErrors")
 const userModel = require("../models/userModel.js")
 const { SendToken } = require("../utils/SendToken.js")
 const ErrorHandler = require("../utils/ErrorHandler.js")
-const VideoCompressor = require("../utils/VideoCompressor.js")
+const { VideoCompressor } = require("../utils/VideoCompressor.js")
 const imagekit = require("../utils/imagekit.js").initImageKit()
 const frontModel = require("../models/frontend.js")
 const BackModel = require("../models/backend.js")
@@ -10,17 +10,18 @@ const MernModel = require("../models/mern.js")
 const UiUxModel = require("../models/uiux.js")
 const { ImageCompressor } = require("../utils/ImageCompressor.js")
 const path = require("path")
+const backend = require("../models/backend.js")
 
 exports.homepage = catchAsyncErrors(async(req,res,next)=>{
     res.json("hii")
 })
 
 exports.admin = catchAsyncErrors(async (req,res,next)=>{
-    const admin = await userModel.findById(req.id)
+    const admin = await userModel.find()
     .populate("frontend")
-    // .populate("backend")
-    // .populate("mern")
-    // .populate("uiux")
+    .populate("backend")
+    .populate("mern")
+    .populate("uiux")
     res.json(admin)
 })
 
@@ -47,10 +48,12 @@ exports.signout = catchAsyncErrors(async(req,res,next)=>{
     res.json({message:"Successfully Signed Out."})
 })
 
+// ___________________________________ Frontend _____________________________________________
+
 exports.createFrontendProject = catchAsyncErrors(async (req, res, next) => {
     
     const userID = await userModel.findById(req.id).exec();
-    const { aboutProject , projectTitle , projectName , projectType } = req.body
+    const { aboutProject , projectTitle , projectName , projectType ,linkedin , github , deployement } = req.body
     let projectPoster = req.files?.projectPoster;
     let projectVideo = req.files?.projectVideo;
     let files = req.files?.images;
@@ -136,7 +139,10 @@ exports.createFrontendProject = catchAsyncErrors(async (req, res, next) => {
             aboutProject,
             projectTitle, 
             projectName,
-            projectType,            
+            projectType,
+            linkedin , 
+            github , 
+            deployement,            
             projectPoster: {
                 fileId: uploadedprojectPoster[0].fileId,
                 url: uploadedprojectPoster[0].url,
@@ -160,14 +166,29 @@ exports.createFrontendProject = catchAsyncErrors(async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: "Frontend Project Uploaded successfully",
-            // Frontend: newFrontend,
+            Frontend: newFrontend,
         });
 });
+
+exports.findFrontendProjects = catchAsyncErrors(async (req,res,next) =>{
+    const allFrontend = await frontModel.find().exec()
+    res.status(201).json({success:true , allFrontend })
+})
+
+exports.findSingleFrontendProjects = catchAsyncErrors(async (req,res,next) =>{
+    const singleFrontend = await frontModel.findById(req.params.id).exec()
+    res.status(201).json({success:true , singleFrontend })
+})
+
+// ___________________________________ Frontend _____________________________________________
+
+
+// ___________________________________ Backend _____________________________________________
 
 exports.createBackendProject = catchAsyncErrors(async (req, res, next) => {
     
     const userID = await userModel.findById(req.id).exec();
-    const { aboutProject , projectTitle , projectName , projectType } = req.body
+    const { aboutProject , projectTitle , projectName , projectType ,linkedin , github , deployement } = req.body
     let projectPoster = req.files?.projectPoster;
     let projectVideo = req.files?.projectVideo;
     let files = req.files?.images;
@@ -253,7 +274,10 @@ exports.createBackendProject = catchAsyncErrors(async (req, res, next) => {
             aboutProject,
             projectTitle, 
             projectName,
-            projectType,            
+            projectType,
+            linkedin , 
+            github , 
+            deployement,            
             projectPoster: {
                 fileId: uploadedprojectPoster[0].fileId,
                 url: uploadedprojectPoster[0].url,
@@ -281,10 +305,25 @@ exports.createBackendProject = catchAsyncErrors(async (req, res, next) => {
         });
 });
 
+exports.findBackendProjects = catchAsyncErrors(async (req,res,next) =>{
+    const allBackend = await BackModel.find().exec()
+    res.status(201).json({success:true , allBackend })
+})
+
+exports.findSingleBackendProjects = catchAsyncErrors(async (req,res,next) =>{
+    const singleBackend = await backend.findById(req.params.id).exec()
+    res.status(201).json({success:true , singleBackend })
+})
+
+// ___________________________________ Backend _____________________________________________
+
+
+// ___________________________________ Mern _____________________________________________
+
 exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
     
     const userID = await userModel.findById(req.id).exec();
-    const { aboutProject , projectTitle , projectName , projectType } = req.body
+    const { aboutProject , projectTitle , projectName , projectType ,linkedin , github , deployement } = req.body
     let projectPoster = req.files?.projectPoster;
     let projectVideo = req.files?.projectVideo;
     let files = req.files?.images;
@@ -370,7 +409,10 @@ exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
             aboutProject,
             projectTitle, 
             projectName,
-            projectType,            
+            projectType,
+            linkedin , 
+            github , 
+            deployement,            
             projectPoster: {
                 fileId: uploadedprojectPoster[0].fileId,
                 url: uploadedprojectPoster[0].url,
@@ -398,10 +440,24 @@ exports.createMernProject = catchAsyncErrors(async (req, res, next) => {
         });
 });
 
+exports.findMernProjects = catchAsyncErrors(async (req,res,next) =>{
+    const allMern = await MernModel.find().exec()
+    res.status(201).json({success:true , allMern })
+})
+
+exports.findSingleMernProjects = catchAsyncErrors(async (req,res,next) =>{
+    const singleMern = await MernModel.findById(req.params.id).exec()
+    res.status(201).json({success:true , singleMern })
+})
+
+// ___________________________________ Mern _____________________________________________
+
+// ___________________________________ UiUx _____________________________________________
+
 exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
     
     const userID = await userModel.findById(req.id).exec();
-    const { aboutProject , projectTitle , projectName , projectType } = req.body
+    const { aboutProject , projectTitle , projectName , projectType ,linkedin , github , deployement } = req.body
     let projectPoster = req.files?.projectPoster;
     let projectVideo = req.files?.projectVideo;
     let files = req.files?.images;
@@ -487,7 +543,10 @@ exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
             aboutProject,
             projectTitle, 
             projectName,
-            projectType,            
+            projectType,
+            linkedin , 
+            github , 
+            deployement,            
             projectPoster: {
                 fileId: uploadedprojectPoster[0].fileId,
                 url: uploadedprojectPoster[0].url,
@@ -514,3 +573,15 @@ exports.createUiUxProject = catchAsyncErrors(async (req, res, next) => {
             UiUx: newUiUx,
         });
 });
+
+exports.findUiUxProjects = catchAsyncErrors(async (req,res,next) =>{
+    const allUiUx = await UiUxModel.find().exec()
+    res.status(201).json({success:true , allUiUx })
+})
+
+exports.findSingleUiUxProjects = catchAsyncErrors(async (req,res,next) =>{
+    const singleUiUx = await UiUxModel.findById(req.params.id).exec()
+    res.status(201).json({success:true , singleUiUx })
+})
+
+// ___________________________________ UiUx _____________________________________________

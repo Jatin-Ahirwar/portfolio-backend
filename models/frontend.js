@@ -21,6 +21,18 @@ const frontendModel = new mongoose.Schema({
         type:String,
         require:true
     },
+    linkedin:{
+        type:String,
+        default:""
+    },
+    github:{
+        type:String,
+        default:""
+    },
+    deployement:{
+        type:String,
+        default:""
+    },
     images:[{
         fileId: {
             type: String,

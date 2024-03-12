@@ -21,6 +21,21 @@ const backendModel = new mongoose.Schema({
         type:String,
         require:true
     },
+    linkedin:{
+        type:String,
+        default:""
+
+    },
+    github:{
+        type:String,
+        default:""
+
+    },
+    deployement:{
+        type:String,
+        default:""
+
+    },
     images:[{
         fileId: {
             type: String,
@@ -44,11 +59,9 @@ const backendModel = new mongoose.Schema({
     projectVideo:{
         fileId: {
             type: String,
-            required: [true, "File ID is required"]
         },
         url: {
             type: String,
-            required: [true, "URL is required"]
         }
     },
 })
