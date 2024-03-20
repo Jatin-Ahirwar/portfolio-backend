@@ -51,12 +51,13 @@ exports.signout = catchAsyncErrors(async(req,res,next)=>{
 // ___________________________________ Frontend _____________________________________________
 
 exports.createFrontendProject = catchAsyncErrors(async (req, res, next) => {
-    
+
     const userID = await userModel.findById(req.id).exec();
     const { aboutProject , projectTitle , projectName , projectType ,linkedin , github , deployement } = req.body
     let projectPoster = req.files?.projectPoster;
     let projectVideo = req.files?.projectVideo;
     let files = req.files?.images;
+
     
     const uploadedprojectPoster = [];
     const uploadedprojectVideo = [];
