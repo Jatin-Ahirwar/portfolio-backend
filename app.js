@@ -24,7 +24,6 @@ app.use(session({
   resave:true,
   saveUninitialized:true,
   secret:process.env.EXPRESS_SESSION_SECRET,
-  cookie: { secure:false }
 })) 
 
 app.use(cookieparser())
