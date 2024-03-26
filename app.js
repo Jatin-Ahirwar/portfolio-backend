@@ -25,6 +25,7 @@ app.use(cookieSession({
   resave:true,
   saveUninitialized:true,
   secret:process.env.EXPRESS_SESSION_SECRET,
+  name: 'Admin Cookie',
   cookie: {
     secure: true, // required for cookies to work on HTTPS
     httpOnly: false,
