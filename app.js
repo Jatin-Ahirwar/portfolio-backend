@@ -20,15 +20,18 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // session and cookie
 const session = require("express-session")
 const cookieparser = require("cookie-parser")
+
 var cookieSession = require('cookie-session')
+
+app.set("trust proxy", 1);
 app.use(cookieSession({
   resave:true,
   saveUninitialized:true,
   secret:process.env.EXPRESS_SESSION_SECRET,
   name: 'Admin Cookie',
+  proxy:true,
   cookie: {
     secure: true, // required for cookies to work on HTTPS
-    proxy:true,
     sameSite: 'none'
   }
 })) 
