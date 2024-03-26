@@ -20,10 +20,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // session and cookie
 const session = require("express-session")
 const cookieparser = require("cookie-parser")
-app.use(session({
+var cookieSession = require('cookie-session')
+app.use(cookieSession({
   resave:true,
   saveUninitialized:true,
   secret:process.env.EXPRESS_SESSION_SECRET,
+  maxAge: 24 * 60 * 60 * 1000 
 })) 
 
 app.use(cookieparser())
