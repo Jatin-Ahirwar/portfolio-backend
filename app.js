@@ -26,10 +26,10 @@ app.use(cookieSession({
   saveUninitialized:true,
   secret:process.env.EXPRESS_SESSION_SECRET,
   sameSite: 'none',
-  secure: true,
+  secure: false,
   maxAge: 1000 * 60 * 60 * 24,
   path: '/',
-  httpOnly: true,
+  httpOnly: false,
 })) 
 
 app.use(cookieparser())
