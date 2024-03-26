@@ -7,7 +7,7 @@ const cors = require("cors")
 // Db connection 
 require("./models/database.js").connectDatabase()
 
-app.use(cors({credentials:true, origin:true}))
+app.use(cors({credentials:true, origin:true , exposedHeaders: ["Set-Cookie"]}))
 
 // logger
 const logger = require("morgan")
@@ -25,11 +25,11 @@ app.use(cookieSession({
   resave:true,
   saveUninitialized:true,
   secret:process.env.EXPRESS_SESSION_SECRET,
-  sameSite: 'none',
-  secure: false,
-  maxAge: 1000 * 60 * 60 * 24,
-  path: '/',
-  httpOnly: false,
+  cookie: {
+    secure: true, // required for cookies to work on HTTPS
+    httpOnly: false,
+    sameSite: 'none'
+  }
 })) 
 
 app.use(cookieparser())
