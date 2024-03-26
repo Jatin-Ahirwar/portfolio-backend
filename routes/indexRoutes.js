@@ -21,7 +21,7 @@ const { homepage,
 
 const { isAuthenticated } = require("../middleware/auth.js")
 
-router.get("/" , isAuthenticated ,homepage)
+router.get("/" , homepage)
 
 router.post("/admin" , isAuthenticated ,admin)
 

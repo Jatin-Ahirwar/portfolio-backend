@@ -52,6 +52,6 @@ userModel.methods.getjwttoken = function () {
     })
 }
 
-const user =  mongoose.model("user" , userModel)
+const user = mongoose.model("user" , userModel)
 
 module.exports = user
