@@ -28,7 +28,7 @@ app.use(cookieSession({
   name: 'Admin Cookie',
   cookie: {
     secure: true, // required for cookies to work on HTTPS
-    httpOnly: false,
+    proxy:true,
     sameSite: 'none'
   }
 })) 

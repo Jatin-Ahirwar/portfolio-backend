@@ -5,7 +5,7 @@ exports.SendToken = (user,statusCode,res)=>{
         expires: new Date(
             Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 *1000
         ),
-        httpOnly:false,
+        httpOnly:true,
     }
     res.status(statusCode)
     .cookie("token" , token , option )
